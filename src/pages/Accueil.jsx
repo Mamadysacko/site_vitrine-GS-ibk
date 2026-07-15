@@ -25,6 +25,7 @@ import {
   Monitor,
   Sparkles,
 } from 'lucide-react';
+import fondateurImg from '../assets/fondateur.png';
 // ========================
 // COMPOSANT HERO SECTION
 // ========================
@@ -939,7 +940,7 @@ const MotFondateur = () => {
             <div className="relative">
               <div className="absolute -inset-4 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full opacity-30 blur-2xl" />
               <div className="relative w-64 h-64 mx-auto rounded-full overflow-hidden border-4 border-white/30 shadow-2xl">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80" alt="Feu Ibrahima Baba Kaké" className="w-full h-full object-cover" />
+                <img src={fondateurImg} alt="Feu Ibrahima Baba Kaké" className="w-full h-full object-cover" />
               </div>
               <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/20">
                 <span className="text-sm font-semibold">2001 - 2025</span>
