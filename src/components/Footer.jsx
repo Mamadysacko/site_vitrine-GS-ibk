@@ -52,31 +52,49 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-bold mb-6 font-heading border-b border-gray-800 pb-2">Ressources</h3>
             <ul className="space-y-3">
-              <li><Link to="/portail" className="text-gray-400 hover:text-white hover:pl-2 transition-all text-sm flex items-center gap-2">→ Espace Élèves/Parents</Link></li>
-              <li><Link to="/portail" className="text-gray-400 hover:text-white hover:pl-2 transition-all text-sm flex items-center gap-2">→ Espace Enseignants</Link></li>
-              <li><Link to="/actualites" className="text-gray-400 hover:text-white hover:pl-2 transition-all text-sm flex items-center gap-2">→ Actualités</Link></li>
+                 <li><Link to="/actualites" className="text-gray-400 hover:text-white hover:pl-2 transition-all text-sm flex items-center gap-2">→ Actualités</Link></li>
               <li><Link to="/galerie" className="text-gray-400 hover:text-white hover:pl-2 transition-all text-sm flex items-center gap-2">→ Galerie</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-bold mb-6 font-heading border-b border-gray-800 pb-2">Contact</h3>
-            <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-gray-400 text-sm">
-                <MapPin className="text-blue-500 mt-1 flex-shrink-0" size={18} />
-                <span>123 Avenue de l'Éducation,<br />Quartier du Savoir, Ville</span>
-              </li>
-              <li className="flex items-center gap-3 text-gray-400 text-sm">
-                <Phone className="text-blue-500 flex-shrink-0" size={18} />
-                <span>+225 00 00 00 00 00</span>
-              </li>
-              <li className="flex items-center gap-3 text-gray-400 text-sm">
-                <Mail className="text-blue-500 flex-shrink-0" size={18} />
-                <span>contact@gs-ibk.edu</span>
-              </li>
-            </ul>
-          </div>
+  <h3 className="text-lg font-bold mb-6 font-heading border-b border-gray-800 pb-2">
+    Contact
+  </h3>
+
+  <ul className="space-y-4">
+    <li className="flex items-start gap-3 text-gray-400 text-sm">
+      <MapPin className="text-blue-500 mt-1 flex-shrink-0" size={18} />
+      <span>
+        Quartier : Dixinn-Centre 1<br />
+        À 50M du Carrefour Échangeur<br />
+        Conakry, Guinée
+      </span>
+    </li>
+
+    <li className="flex items-start gap-3 text-gray-400 text-sm">
+      <Phone className="text-blue-500 mt-1 flex-shrink-0" size={18} />
+      <span>
+        (+224) 624-24-56-24<br />
+        (+224) 624-39-68-84
+      </span>
+    </li>
+
+    <li className="flex items-center gap-3 text-gray-400 text-sm">
+      <Mail className="text-blue-500 flex-shrink-0" size={18} />
+      <span>
+        gsibrahimababakake@gmail.com
+      </span>
+    </li>
+
+    <li className="flex items-start gap-3 text-gray-400 text-sm">
+      <span className="text-blue-500 font-bold flex-shrink-0">
+      </span>
+    
+    </li>
+  </ul>
+</div>
 
         </div>
 
@@ -85,8 +103,6 @@ const Footer = () => {
             &copy; {new Date().getFullYear()} GS_IBK. Tous droits réservés.
           </p>
           <div className="mt-4 md:mt-0 flex justify-center space-x-6">
-            <a href="#" className="text-gray-500 hover:text-white text-sm">Mentions Légales</a>
-            <a href="#" className="text-gray-500 hover:text-white text-sm">Politique de Confidentialité</a>
           </div>
         </div>
       </div>

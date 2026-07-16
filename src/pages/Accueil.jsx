@@ -24,8 +24,11 @@ import {
   CheckCircle,
   Monitor,
   Sparkles,
+  Download,
+  FileText,
 } from 'lucide-react';
 import fondateurImg from '../assets/fondateur.png';
+import ficheRenseignement from '../assets/fiche-renseignement.pdf';
 // ========================
 // COMPOSANT HERO SECTION
 // ========================
@@ -997,7 +1000,12 @@ const MotFondateur = () => {
 };
 
 // ========================
-// COMPOSANT GALERIE PHOTOS
+// COMPOSANT FICHE RENSEIGNEMENT
+// ========================
+
+
+// ========================
+// COMPOSANT PRINCIPAL ACCUEIL
 // ========================
 const Accueil = () => {
   return (
@@ -1008,7 +1016,7 @@ const Accueil = () => {
       <PourquoiChoisir />
       <NosCycles />
       <MotFondateur />
-      
+     
     </>
   );
 };

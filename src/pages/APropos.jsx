@@ -20,8 +20,11 @@ import {
   ChevronRight,
   Sparkles,
   Eye,
-  Quote
+  Quote,
+  Download,
+  FileText,
 } from 'lucide-react';
+import ficheRenseignement from '../assets/fiche-renseignement.pdf';
 
 // Animation variants
 const fadeInUp = {
@@ -747,6 +750,76 @@ const APropos = () => {
       </section>
 
       {/* ==================== CTA FINAL ==================== */}
+      <div className="p-8 md:p-10 bg-gradient-to-br from-slate-50 via-white to-blue-50">
+  <div className="grid md:grid-cols-2 gap-8">
+
+    <motion.div
+      initial={{ opacity: 0, x: -20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      className="space-y-5"
+    >
+      <h3 className="text-2xl font-bold text-primary">
+        📄 Document Important
+      </h3>
+
+      <p className="text-gray-700 leading-8">
+        La fiche de renseignement est un document indispensable pour
+        l'inscription des élèves. Elle contient toutes les informations
+        nécessaires concernant l'apprenant et doit être remplie avec soin.
+      </p>
+    </motion.div>
+
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      viewport={{ once: true }}
+      className="flex flex-col gap-5 justify-center"
+    >
+      {/* Bouton Télécharger */}
+      <button
+        onClick={() => {
+          const link = document.createElement("a");
+          link.href = ficheRenseignement;
+          link.download = "fiche-renseignement.pdf";
+          link.click();
+        }}
+        className="group flex items-center justify-center gap-3
+        bg-yellow-400 hover:bg-yellow-500
+        text-gray-900 font-bold
+        px-6 py-4 rounded-xl
+        transition-all duration-300
+        shadow-lg hover:shadow-xl hover:scale-105"
+      >
+        <Download
+          size={20}
+          className="group-hover:-translate-y-1 transition-transform"
+        />
+        <span>Télécharger la fiche</span>
+      </button>
+
+      {/* Bouton Visualiser */}
+      <button
+        onClick={() => window.open(ficheRenseignement, "_blank")}
+        className="group flex items-center justify-center gap-3
+        bg-blue-700 hover:bg-blue-800
+        text-white font-bold
+        px-6 py-4 rounded-xl
+        transition-all duration-300
+        shadow-lg hover:shadow-xl hover:scale-105"
+      >
+        <Eye size={20} />
+        <span>Visualiser le PDF</span>
+      </button>
+
+      <p className="text-sm text-gray-500 text-center">
+        📑 Format PDF — Peut être rempli numériquement ou imprimé.
+      </p>
+    </motion.div>
+
+  </div>
+</div>
+
       <section className="py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div

@@ -5,7 +5,6 @@ import APropos from './pages/APropos';
 import Niveaux from './pages/Niveaux';
 import Equipe from './pages/Equipe';
 import Inscription from './pages/inscription';
-import Portail from './pages/Portail';
 import Actualites from './pages/Actualites';
 import Galerie from './pages/Galerie';
 import Contact from './pages/Contact';
@@ -21,7 +20,6 @@ function App() {
           <Route path="niveaux" element={<Niveaux />} />
           <Route path="equipe" element={<Equipe />} />
           <Route path="inscription" element={<Inscription />} />
-          <Route path="portail" element={<Portail />} />
           <Route path="actualites" element={<Actualites />} />
           <Route path="galerie" element={<Galerie />} />
           <Route path="contact" element={<Contact />} />

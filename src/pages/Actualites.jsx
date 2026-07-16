@@ -83,31 +83,14 @@ const Actualites = () => {
                   {article.excerpt}
                 </p>
 
-                <a href="#" className="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-800 transition-colors mt-auto">
-                  Lire la suite <ChevronRight size={20} />
-                </a>
+            
               </div>
             </motion.article>
           ))}
         </div>
 
         {/* Newsletter / Notifications CTA */}
-        <div className="mt-20 bg-blue-50 rounded-3xl p-8 md:p-12 text-center border border-blue-100">
-          <h3 className="text-2xl font-bold    font-heading mb-4">Ne manquez aucune annonce importante</h3>
-          <p className="text-gray-600 mb-8 max-w-2xl mx-auto">
-            Inscrivez-vous à notre liste de diffusion pour recevoir les alertes, le calendrier scolaire et les communiqués de la direction.
-          </p>
-          <form className="max-w-md mx-auto flex gap-2">
-            <input
-              type="email"
-              placeholder="Votre adresse email"
-              className="flex-grow bg-white border border-gray-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-            <button className="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-xl font-bold transition-colors">
-              S'inscrire
-            </button>
-          </form>
-        </div>
+      
       </div>
     </div>
   );
