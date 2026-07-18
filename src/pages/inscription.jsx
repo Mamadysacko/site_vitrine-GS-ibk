@@ -29,9 +29,24 @@ import {
   File,
   Eye
 } from 'lucide-react';
+import imgEcole1 from '../assets/image ecole/image_1.png';
+import imgEcole2 from '../assets/image ecole/image_2.png';
+import imgEcole3 from '../assets/image ecole/image_3.png';
+import imgEcole4 from '../assets/image ecole/image_4.png';
+import imgEcole5 from '../assets/image ecole/image_5.png';
 
 const Inscription = () => {
   const [step, setStep] = useState(1);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const bannerImages = [imgEcole1, imgEcole2, imgEcole3, imgEcole4, imgEcole5];
+
+  const changeImage = (direction) => {
+    if (direction === 'next') {
+      setCurrentImageIndex((prev) => (prev + 1) % bannerImages.length);
+    } else {
+      setCurrentImageIndex((prev) => (prev - 1 + bannerImages.length) % bannerImages.length);
+    }
+  };
   const [formData, setFormData] = useState({
     // Informations élève (réduites)
     nom: '',

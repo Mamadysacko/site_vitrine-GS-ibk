@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
@@ -29,10 +29,25 @@ import {
 } from 'lucide-react';
 import fondateurImg from '../assets/fondateur.png';
 import ficheRenseignement from '../assets/fiche-renseignement.pdf';
+import imgEcole1 from '../assets/image ecole/image_1.png';
+import imgEcole2 from '../assets/image ecole/image_2.png';
+import imgEcole3 from '../assets/image ecole/image_3.png';
+import imgEcole4 from '../assets/image ecole/image_4.png';
+import imgEcole5 from '../assets/image ecole/image_5.png';
 // ========================
 // COMPOSANT HERO SECTION
 // ========================
 const HeroSection = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const heroImages = [imgEcole1, imgEcole2, imgEcole3, imgEcole4, imgEcole5];
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
   const decorativeDots = Array.from({ length: 20 }, (_, i) => ({
     x: (i % 5) * 20 + 5,
     y: (i % 4) * 20 + 5,
@@ -43,13 +58,19 @@ const HeroSection = () => {
   return (
     <section className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-black/40 z-10" />
-        <img
-          src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80"
-          alt="Groupe Scolaire Ibrahima Baba Kaké"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/20 to-transparent z-10" />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-900/80 to-black/40 z-10" />
+        <AnimatePresence mode="wait">
+          <motion.img
+            key={currentImageIndex}
+            src={heroImages[currentImageIndex]}
+            alt="Groupe Scolaire Ibrahima Baba Kaké"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.98 }}
+            transition={{ duration: 0.8 }}
+            className="absolute w-full h-full object-cover"
+          />
+        </AnimatePresence>
       </div>
 
       <div className="absolute inset-0 z-10 overflow-hidden">
@@ -77,8 +98,8 @@ const HeroSection = () => {
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
         <div className="w-full py-20">
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             className="max-w-4xl"
           >
@@ -86,20 +107,23 @@ const HeroSection = () => {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.2 }}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90 text-sm font-semibold mb-6"
+              className="flex items-center gap-4 mb-6"
             >
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-              Établissement d'excellence depuis 2001
+              <div className="w-12 h-1 bg-blue-500 rounded-full" />
+              <span className="uppercase tracking-widest text-sm font-bold text-blue-200 drop-shadow-md flex items-center gap-2">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                Établissement d'excellence depuis 2001
+              </span>
             </motion.div>
 
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.8 }}
-              className="text-4xl md:text-5xl lg:text-7xl font-bold text-white leading-tight mb-4"
+              className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white leading-tight mb-4 drop-shadow-lg"
             >
-              Groupe Scolaire
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-cyan-200">
+              Groupe Scolaire <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">
                 Ibrahima Baba Kaké
               </span>
             </motion.h1>
@@ -480,107 +504,122 @@ const KeyStats = () => {
 // ========================
 const MotDeBienvenue = () => {
   return (
-    <section className="py-20 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 relative overflow-hidden bg-slate-50">
+      {/* Decorative Background */}
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 opacity-40">
+        <div className="absolute -top-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-blue-100/50 blur-3xl" />
+        <div className="absolute top-[20%] -right-[10%] w-[40%] h-[60%] rounded-full bg-indigo-100/50 blur-3xl" />
+        <div className="absolute -bottom-[10%] left-[20%] w-[60%] h-[40%] rounded-full bg-blue-50/50 blur-3xl" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold tracking-wider mb-3">
-            MOT DE BIENVENUE
+          <span className="inline-block px-5 py-1.5 bg-white border border-blue-100 text-blue-700 rounded-full text-sm font-bold tracking-widest shadow-sm mb-4 uppercase">
+            Mot de Bienvenue
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
-            Bienvenue au GS_IBK
+          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            Bienvenue au <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-700 to-indigo-600">GS_IBK</span>
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto" />
+          <div className="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full" />
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-8 md:gap-10">
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
+            initial={{ opacity: 0, x: -40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-8"
           >
-            <p className="text-lg text-gray-700 leading-relaxed">
-              <strong className="text-blue-800">Créé en 2001</strong>, le Groupe Scolaire Ibrahima Baba Kaké
-              est un établissement d'enseignement général situé au cœur de la <strong>Commune de Dixinn</strong>,
-              à Conakry, en République de Guinée.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              Depuis plusieurs années, notre établissement œuvre avec détermination pour offrir
-              aux enfants et aux jeunes une éducation de qualité fondée sur les valeurs du travail,
-              de la rigueur et de la discipline.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              Notre ambition est de préparer chaque apprenant à relever les défis académiques,
-              professionnels et sociaux du monde moderne tout en développant son sens de la
-              responsabilité et de la citoyenneté.
-            </p>
+            <div className="prose prose-lg text-slate-600">
+              <p className="leading-relaxed">
+                <strong className="text-blue-900 font-semibold">Créé en 2001</strong>, le Groupe Scolaire Ibrahima Baba Kaké
+                est un établissement d'enseignement général de référence situé au cœur de la <strong className="text-slate-800">Commune de Dixinn</strong>,
+                à Conakry, en République de Guinée.
+              </p>
+              <p className="leading-relaxed mt-4">
+                Depuis plus de deux décennies, notre institution œuvre avec passion et détermination pour offrir
+                aux enfants et aux jeunes une éducation d'excellence, solidement ancrée dans les valeurs du travail,
+                de la rigueur et de la discipline.
+              </p>
+              <p className="leading-relaxed mt-4">
+                Notre ambition primordiale est de préparer chaque apprenant à affronter avec succès les défis académiques,
+                professionnels et sociaux du monde contemporain, tout en forgeant son sens de la responsabilité et son esprit citoyen.
+              </p>
+            </div>
             <Link
               to="/a-propos"
-              className="inline-flex items-center gap-2 text-blue-600 font-bold hover:text-blue-800 transition-colors group"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-white text-blue-700 font-bold rounded-xl shadow-md shadow-blue-900/5 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 border border-blue-50 group"
             >
-              En savoir plus sur notre histoire
-              <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+              Découvrir notre histoire
+              <ArrowRight size={20} className="group-hover:translate-x-1.5 transition-transform" />
             </Link>
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6"
+            className="space-y-6 relative"
           >
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-6 border border-blue-100">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
-                  <Target size={24} />
+            {/* Mission Card */}
+            <div className="group relative bg-white/80 backdrop-blur-md rounded-2xl p-8 border border-white/60 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300 z-10 overflow-hidden">
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-500 to-blue-600 rounded-l-2xl group-hover:w-2 transition-all duration-300" />
+              <div className="flex items-start gap-5">
+                <div className="p-3 bg-blue-50 rounded-xl text-blue-600 shadow-inner">
+                  <Target size={28} strokeWidth={2} />
                 </div>
-                <h3 className="text-xl font-bold text-blue-900">Notre Mission</h3>
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">Notre Mission</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Assurer une formation complète et équilibrée qui garantit la réussite académique
+                    ainsi que l'épanouissement moral, intellectuel, culturel et social de chaque élève.
+                  </p>
+                </div>
               </div>
-              <p className="text-gray-700 leading-relaxed">
-                Assurer une formation complète et équilibrée qui favorise la réussite académique
-                ainsi que le développement moral, intellectuel, culturel et social de chaque apprenant.
-              </p>
             </div>
 
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border border-indigo-100">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="p-2 bg-indigo-100 rounded-lg text-indigo-600">
-                  <Eye size={24} />
+            {/* Vision Card */}
+            <div className="group relative bg-white/80 backdrop-blur-md rounded-2xl p-8 border border-white/60 shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-300 z-10 overflow-hidden">
+              <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-indigo-500 to-indigo-600 rounded-l-2xl group-hover:w-2 transition-all duration-300" />
+              <div className="flex items-start gap-5">
+                <div className="p-3 bg-indigo-50 rounded-xl text-indigo-600 shadow-inner">
+                  <Eye size={28} strokeWidth={2} />
                 </div>
-                <h3 className="text-xl font-bold text-blue-900">Notre Vision</h3>
+                <div>
+                  <h3 className="text-2xl font-bold text-slate-900 mb-3 group-hover:text-indigo-700 transition-colors">Notre Vision</h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    Bâtir une institution éducative d'avant-garde, formatrice de leaders, de professionnels
+                    compétents et de citoyens éclairés, prêts à dynamiser le développement de la Guinée.
+                  </p>
+                </div>
               </div>
-              <p className="text-gray-700 leading-relaxed">
-                Bâtir une institution éducative moderne capable de former des leaders, des professionnels
-                compétents et des citoyens responsables, prêts à contribuer activement au développement
-                de la Guinée et du monde.
-              </p>
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
+            {/* Core Values */}
+            <div className="grid grid-cols-3 gap-4 mt-8">
               {[
-  { icon: Heart, label: 'TRAVAIL', color: 'text-rose-500', bg: 'bg-rose-50' },
-  { icon: BookOpen, label: 'RIGUEUR', color: 'text-blue-500', bg: 'bg-blue-50' },
-  { icon: Award, label: 'DISCIPLINE', color: 'text-amber-500', bg: 'bg-amber-50' },
-].map((item, index) => (
-  <motion.div
-    key={index}
-    initial={{ opacity: 0, scale: 0.9 }}
-    animate={{ opacity: 1, scale: 1 }}
-    transition={{ delay: index * 0.1 }}
-    whileHover={{ y: -4, scale: 1.02 }}
-    className={`${item.bg} rounded-2xl p-4 text-center cursor-pointer transition-all duration-300 hover:shadow-md border border-transparent hover:border-${item.color.replace('text-', '')}`}
-  >
-    <div className={`${item.color} flex items-center justify-center mx-auto mb-2`}>
-      <item.icon size={24} strokeWidth={1.5} />
-    </div>
-    <span className="text-sm font-bold text-gray-700 tracking-wider">{item.label}</span>
-  </motion.div>
-))}
+                { icon: Heart, label: 'TRAVAIL', color: 'text-rose-500', bg: 'bg-rose-50', hover: 'hover:border-rose-200 hover:shadow-rose-100' },
+                { icon: BookOpen, label: 'RIGUEUR', color: 'text-blue-600', bg: 'bg-blue-50', hover: 'hover:border-blue-200 hover:shadow-blue-100' },
+                { icon: Award, label: 'DISCIPLINE', color: 'text-amber-500', bg: 'bg-amber-50', hover: 'hover:border-amber-200 hover:shadow-amber-100' },
+              ].map((item, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + index * 0.1 }}
+                  className={`bg-white rounded-2xl p-5 text-center cursor-pointer transition-all duration-300 shadow-md shadow-slate-200/50 border border-slate-100 ${item.hover} hover:shadow-lg hover:-translate-y-1`}
+                >
+                  <div className={`${item.color} ${item.bg} w-14 h-14 rounded-full flex items-center justify-center mx-auto mb-3 shadow-sm`}>
+                    <item.icon size={26} strokeWidth={2} />
+                  </div>
+                  <span className="text-sm font-extrabold text-slate-800 tracking-widest">{item.label}</span>
+                </motion.div>
+              ))}
             </div>
           </motion.div>
         </div>
@@ -600,85 +639,70 @@ const PourquoiChoisir = () => {
       description: 'Des résultats exceptionnels aux examens nationaux avec un taux de réussite de 98%, plaçant nos élèves parmi les meilleurs.', 
       color: 'gold',
       stat: '98%',
-      statLabel: 'Taux de réussite'
+      statLabel: 'Taux de réussite',
+      gradient: 'from-amber-400 to-orange-500',
+      iconBg: 'bg-amber-50 text-amber-600',
+      shadow: 'shadow-amber-500/20'
     },
     { 
       icon: Shield, 
-      title: 'Sécurité et Surveillance', 
-      description: 'Un établissement entièrement sécurisé avec un système de vidéosurveillance 24h/24 et un personnel dédié à la protection des élèves.', 
+      title: 'Sécurité Maximale', 
+      description: 'Un établissement entièrement sécurisé avec un système de vidéosurveillance 24h/24 et un personnel dédié à la protection.', 
       color: 'red',
       stat: '24/7',
-      statLabel: 'Surveillance continue'
+      statLabel: 'Surveillance active',
+      gradient: 'from-rose-400 to-red-500',
+      iconBg: 'bg-rose-50 text-rose-600',
+      shadow: 'shadow-rose-500/20'
     },
     { 
       icon: Users, 
       title: 'Encadrement Qualifié', 
-      description: 'Une équipe pédagogique expérimentée et dévouée, composée de professeurs hautement qualifiés et passionnés par la transmission du savoir.', 
+      description: 'Une équipe pédagogique expérimentée et dévouée, composée de professeurs hautement qualifiés et passionnés.', 
       color: 'blue',
       stat: '100%',
-      statLabel: 'Enseignants diplômés'
+      statLabel: 'Enseignants diplômés',
+      gradient: 'from-blue-500 to-indigo-600',
+      iconBg: 'bg-blue-50 text-blue-600',
+      shadow: 'shadow-blue-500/20'
     },
     { 
       icon: Monitor, 
-      title: 'Centre d\'Information et de Formation', 
-      description: 'Un centre informatique moderne dédié aux élèves et au personnel, offrant une formation technologique de pointe pour maîtriser les outils numériques.', 
+      title: 'Pôle Technologique', 
+      description: 'Un centre informatique moderne dédié aux élèves, offrant une formation de pointe pour maîtriser les outils de demain.', 
       color: 'cyan',
       stat: '200+',
-      statLabel: 'Postes informatiques'
+      statLabel: 'Postes informatiques',
+      gradient: 'from-cyan-400 to-blue-500',
+      iconBg: 'bg-cyan-50 text-cyan-600',
+      shadow: 'shadow-cyan-500/20'
     },
     { 
       icon: Dumbbell, 
       title: 'Activités Sportives', 
-      description: 'Des infrastructures sportives de qualité et des compétitions régulières pour développer l\'esprit d\'équipe et la santé physique.', 
+      description: 'Des infrastructures de qualité et des compétitions régulières pour développer le leadership, l\'esprit d\'équipe et la santé.', 
       color: 'green',
       stat: '15+',
-      statLabel: 'Disciplines sportives'
+      statLabel: 'Disciplines sportives',
+      gradient: 'from-emerald-400 to-green-500',
+      iconBg: 'bg-emerald-50 text-emerald-600',
+      shadow: 'shadow-emerald-500/20'
     },
     { 
       icon: Palette, 
-      title: 'Activités Culturelles et Artistiques', 
-      description: 'Des clubs artistiques et culturels variés pour révéler les talents créatifs et favoriser l\'épanouissement personnel des élèves.', 
+      title: 'Arts & Culture', 
+      description: 'Des clubs artistiques et culturels variés pour révéler les talents créatifs et favoriser l\'épanouissement personnel de chacun.', 
       color: 'purple',
       stat: '20+',
-      statLabel: 'Activités culturelles'
+      statLabel: 'Clubs et activités',
+      gradient: 'from-purple-500 to-fuchsia-500',
+      iconBg: 'bg-purple-50 text-purple-600',
+      shadow: 'shadow-purple-500/20'
     }
   ];
 
-  const colorClasses = {
-    gold: 'from-yellow-400 to-amber-500',
-    blue: 'from-blue-500 to-blue-600',
-    green: 'from-green-400 to-green-500',
-    red: 'from-red-500 to-red-600',
-    cyan: 'from-cyan-500 to-sky-600',
-    indigo: 'from-indigo-500 to-indigo-600',
-    orange: 'from-orange-400 to-orange-500',
-    purple: 'from-purple-500 to-purple-600'
-  };
-
-  const bgColors = {
-    gold: 'bg-yellow-100 text-yellow-600',
-    blue: 'bg-blue-100 text-blue-600',
-    green: 'bg-green-100 text-green-600',
-    red: 'bg-red-100 text-red-600',
-    cyan: 'bg-cyan-100 text-cyan-600',
-    indigo: 'bg-indigo-100 text-indigo-600',
-    orange: 'bg-orange-100 text-orange-600',
-    purple: 'bg-purple-100 text-purple-600'
-  };
-
-  const borderColors = {
-    gold: 'border-yellow-200',
-    blue: 'border-blue-200',
-    green: 'border-green-200',
-    red: 'border-red-200',
-    cyan: 'border-cyan-200',
-    indigo: 'border-indigo-200',
-    orange: 'border-orange-200',
-    purple: 'border-purple-200'
-  };
-
   return (
-    <section className="py-20 bg-gradient-to-br from-white via-blue-50/30 to-white">
+    <section className="py-24 bg-[#f8fafc]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -686,117 +710,62 @@ const PourquoiChoisir = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-100/80 rounded-full text-sm font-semibold text-blue-700 mb-4">
-            <Sparkles size={16} />
-            <span>POURQUOI NOUS CHOISIR</span>
+          <div className="inline-flex items-center gap-2 px-5 py-2 bg-blue-50 border border-blue-100 rounded-full text-sm font-bold text-blue-700 mb-6 shadow-sm uppercase tracking-wide">
+            <Sparkles size={18} className="text-blue-500" />
+            <span>Pourquoi Nous Choisir</span>
           </div>
           
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Les Atouts du <span className="text-blue-600">GS_IBK</span>
+          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
+            Les Atouts de <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">L'Excellence</span>
           </h2>
           
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-1 w-12 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full" />
-            <div className="h-1 w-4 bg-blue-400 rounded-full" />
-            <div className="h-1 w-12 bg-gradient-to-r from-blue-600 to-blue-500 rounded-full" />
-          </div>
-          
-          <p className="text-gray-600 max-w-3xl mx-auto text-lg leading-relaxed">
-            Découvrez les atouts qui font du GS_IBK un établissement d'excellence, 
-            alliant sécurité, innovation technologique et formation de qualité.
+          <p className="text-slate-600 max-w-3xl mx-auto text-lg leading-relaxed">
+            Découvrez les avantages exclusifs qui font du GS_IBK un établissement de premier plan, 
+            combinant un environnement sécurisé, une innovation pédagogique et un encadrement sur mesure.
           </p>
         </motion.div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {reasons.map((reason, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.08, type: "spring", stiffness: 100 }}
-              whileHover={{ y: -10 }}
-              className="group relative bg-white rounded-2xl p-7 shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 overflow-hidden"
+              transition={{ delay: index * 0.1 }}
+              className="group relative bg-white rounded-3xl p-8 shadow-lg shadow-slate-200/50 hover:shadow-2xl hover:shadow-slate-300/60 transition-all duration-300 border border-slate-100 hover:-translate-y-1.5"
             >
-              {/* Gradient Border Effect */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${colorClasses[reason.color]} opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl`} style={{ padding: '2px' }}>
-                <div className="absolute inset-0 bg-white rounded-2xl" />
-              </div>
+              {/* Top Accent Line */}
+              <div className={`absolute top-0 left-1/2 -translate-x-1/2 w-12 h-1.5 bg-gradient-to-r ${reason.gradient} rounded-b-full opacity-0 group-hover:opacity-100 group-hover:w-1/2 transition-all duration-500`} />
               
-              {/* Left Accent Bar */}
-              <div className={`absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b ${colorClasses[reason.color]} rounded-l-2xl group-hover:w-2 transition-all duration-300`} />
-              
-              {/* Content */}
-              <div className="relative">
-                <div className="flex items-start gap-4">
-                  {/* Icon Container */}
-                  <div className={`p-3 rounded-2xl ${bgColors[reason.color]} group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-md`}>
-                    <reason.icon size={24} strokeWidth={1.8} />
+              <div className="flex flex-col h-full">
+                <div className="flex items-center justify-between mb-6">
+                  <div className={`w-16 h-16 rounded-2xl ${reason.iconBg} flex items-center justify-center transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300 shadow-inner`}>
+                    <reason.icon size={32} strokeWidth={1.5} />
                   </div>
                   
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-800 mb-2 group-hover:text-blue-600 transition-colors">
-                      {reason.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 leading-relaxed">
-                      {reason.description}
-                    </p>
+                  <div className={`px-4 py-2 bg-slate-50 rounded-xl border border-slate-100 text-center`}>
+                    <span className={`block text-xl font-black bg-gradient-to-r ${reason.gradient} bg-clip-text text-transparent`}>
+                      {reason.stat}
+                    </span>
+                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-0.5 block">
+                      {reason.statLabel}
+                    </span>
                   </div>
                 </div>
                 
-                {/* Stats Badge */}
-                <div className={`mt-4 flex items-center justify-between pt-4 border-t ${borderColors[reason.color]}`}>
-                  <span className="text-xs font-medium text-gray-500 uppercase tracking-wider">
-                    {reason.statLabel}
-                  </span>
-                  <span className={`text-sm font-extrabold bg-gradient-to-r ${colorClasses[reason.color]} bg-clip-text text-transparent`}>
-                    {reason.stat}
-                  </span>
+                <div className="flex-1">
+                  <h3 className="text-xl font-bold text-slate-900 mb-3 group-hover:text-blue-700 transition-colors">
+                    {reason.title}
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed">
+                    {reason.description}
+                  </p>
                 </div>
               </div>
-              
-              {/* Background Glow Effect */}
-              <div className={`absolute -bottom-12 -right-12 w-32 h-32 bg-gradient-to-r ${colorClasses[reason.color]} rounded-full opacity-0 group-hover:opacity-5 transition-opacity duration-500 blur-2xl`} />
             </motion.div>
           ))}
         </div>
-
-        {/* Bottom CTA Section */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.4 }}
-          className="mt-16 text-center"
-        >
-          <div className="inline-flex flex-wrap items-center justify-center gap-4 p-6 bg-white rounded-2xl shadow-lg border border-gray-100 max-w-4xl mx-auto">
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Shield className="text-green-500" size={20} />
-              <span className="font-medium">Sécurité garantie</span>
-            </div>
-            <div className="w-px h-8 bg-gray-200 hidden sm:block" />
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Monitor className="text-cyan-500" size={20} />
-              <span className="font-medium">Technologie de pointe</span>
-            </div>
-            <div className="w-px h-8 bg-gray-200 hidden sm:block" />
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Users className="text-blue-500" size={20} />
-              <span className="font-medium">Encadrement personnalisé</span>
-            </div>
-            <div className="w-px h-8 bg-gray-200 hidden sm:block" />
-            <div className="flex items-center gap-2 text-sm text-gray-600">
-              <Award className="text-amber-500" size={20} />
-              <span className="font-medium">Excellence académique</span>
-            </div>
-          </div>
-          
-          {/* Additional Info */}
-          <p className="mt-6 text-sm text-gray-500 max-w-2xl mx-auto">
-            Rejoignez une communauté éducative d'excellence où chaque élève est accompagné 
-            vers la réussite dans un environnement sécurisé et moderne.
-          </p>
-        </motion.div>
       </div>
     </section>
   );
@@ -806,81 +775,112 @@ const PourquoiChoisir = () => {
 // ========================
 const NosCycles = () => {
   const cycles = [
-    { icon: BookOpen, title: 'Primaire', subtitle: 'Cycle Fondamental', description: 'Développement des bases fondamentales en lecture, écriture, calcul et éveil intellectuel.',classes: 'Maternelle - 6ème', color: 'green' },
-    { icon: School, title: 'Collège', subtitle: 'Cycle Moyen', description: 'Renforcement des connaissances et développement des capacités d\'analyse et de réflexion.', classes: '7ème - 10ème', color: 'blue' },
-    { icon: GraduationCap, title: 'Lycée', subtitle: 'Cycle Supérieur', description: 'Préparation aux examens nationaux et aux études supérieures avec un accompagnement personnalisé.', classes: '11ème - Terminale', color: 'purple' }
+    { 
+      icon: BookOpen, 
+      title: 'Primaire', 
+      subtitle: 'Cycle Fondamental', 
+      description: 'Développement des bases fondamentales en lecture, écriture, calcul et éveil intellectuel dans un cadre bienveillant.',
+      classes: 'Maternelle - 6ème', 
+      gradient: 'from-emerald-500 to-teal-600',
+      bgLight: 'bg-emerald-50',
+      textLight: 'text-emerald-700'
+    },
+    { 
+      icon: School, 
+      title: 'Collège', 
+      subtitle: 'Cycle Moyen', 
+      description: 'Renforcement des connaissances, développement de l\'esprit critique et des capacités d\'analyse scientifique et littéraire.', 
+      classes: '7ème - 10ème', 
+      gradient: 'from-blue-500 to-indigo-600',
+      bgLight: 'bg-blue-50',
+      textLight: 'text-blue-700'
+    },
+    { 
+      icon: GraduationCap, 
+      title: 'Lycée', 
+      subtitle: 'Cycle Supérieur', 
+      description: 'Préparation intensive aux examens nationaux et orientation vers les études supérieures avec un tutorat personnalisé.', 
+      classes: '11ème - Terminale', 
+      gradient: 'from-purple-500 to-fuchsia-600',
+      bgLight: 'bg-purple-50',
+      textLight: 'text-purple-700'
+    }
   ];
 
-  const colorClasses = {
-    green: 'from-green-400 to-green-600',
-    blue: 'from-blue-500 to-blue-700',
-    purple: 'from-purple-500 to-purple-700'
-  };
-
-  const bgColors = {
-    green: 'bg-green-100 text-green-600',
-    blue: 'bg-blue-100 text-blue-600',
-    purple: 'bg-purple-100 text-purple-600'
-  };
-
   return (
-    <section className="py-14 md:py-16 bg-gradient-to-b from-gray-50 to-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section className="py-24 bg-white relative overflow-hidden">
+      {/* Decorative patterns */}
+      <div className="absolute top-0 right-0 w-1/3 h-1/3 bg-blue-50/50 rounded-bl-[100%] z-0" />
+      <div className="absolute bottom-0 left-0 w-1/4 h-1/4 bg-indigo-50/50 rounded-tr-[100%] z-0" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12"
+          className="text-center mb-16"
         >
-          <span className="inline-block px-4 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-semibold tracking-wider mb-3">
-            FORMATION COMPLÈTE
+          <span className="inline-block px-5 py-1.5 bg-blue-50 border border-blue-100 text-blue-700 rounded-full text-sm font-bold tracking-widest shadow-sm mb-4 uppercase">
+            Formation Complète
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold text-blue-900 mb-4">
+          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 mb-6 tracking-tight">
             Nos Cycles d'Enseignement
           </h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-blue-700 mx-auto" />
-          <p className="text-gray-600 mt-4 max-w-2xl mx-auto">
-            Un parcours éducatif continu du primaire au lycée pour former les leaders de demain
+          <div className="w-24 h-1.5 bg-gradient-to-r from-blue-500 to-indigo-600 mx-auto rounded-full mb-6" />
+          <p className="text-slate-600 max-w-2xl mx-auto text-lg leading-relaxed">
+            Un parcours éducatif d'excellence, pensé pour accompagner l'évolution intellectuelle 
+            et personnelle de votre enfant, de la maternelle jusqu'au baccalauréat.
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid md:grid-cols-3 gap-8">
           {cycles.map((cycle, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              whileHover={{ y: -10 }}
-              className="relative group"
+              transition={{ delay: index * 0.15 }}
+              className="group relative h-full"
             >
-              <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full">
-                <div className={`bg-gradient-to-r ${colorClasses[cycle.color]} p-6 text-white relative`}>
-                  <div className="absolute right-0 top-0 w-32 h-32 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
-                  <div className="absolute -bottom-6 left-6">
-                    <div className={`p-3 rounded-xl ${bgColors[cycle.color]} shadow-lg`}>
-                      <cycle.icon size={28} />
+              <div className="bg-white rounded-[2rem] overflow-hidden shadow-xl shadow-slate-200/50 hover:shadow-2xl transition-all duration-500 border border-slate-100 flex flex-col h-full group-hover:-translate-y-2">
+                <div className={`bg-gradient-to-br ${cycle.gradient} p-8 text-white relative overflow-hidden`}>
+                  {/* Background circles */}
+                  <div className="absolute -right-8 -top-8 w-40 h-40 bg-white/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700" />
+                  <div className="absolute -left-8 -bottom-8 w-32 h-32 bg-black/10 rounded-full blur-xl" />
+                  
+                  <div className="relative z-10 flex justify-between items-start mb-6">
+                    <div className={`w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30 flex items-center justify-center shadow-lg transform group-hover:rotate-6 transition-transform duration-300`}>
+                      <cycle.icon size={32} className="text-white" />
+                    </div>
+                    <div className="text-right">
+                      <span className="inline-block px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-xs font-bold uppercase tracking-wider mb-2 border border-white/20">
+                        {cycle.subtitle}
+                      </span>
                     </div>
                   </div>
-                  <div className="text-right">
-                    <div className="text-sm opacity-90">{cycle.subtitle}</div>
-                    <div className="text-2xl font-bold">{cycle.title}</div>
+                  
+                  <div className="relative z-10">
+                    <h3 className="text-3xl font-extrabold mb-1">{cycle.title}</h3>
                   </div>
                 </div>
-                <div className="p-6 pt-8 space-y-4">
-                  <p className="text-gray-600 leading-relaxed">{cycle.description}</p>
-                  <div className="grid grid-cols-2 gap-3 pt-3 border-t border-gray-100">
-
+                
+                <div className="p-8 flex flex-col flex-grow bg-white">
+                  <p className="text-slate-600 leading-relaxed text-lg mb-8 flex-grow">
+                    {cycle.description}
+                  </p>
+                  
+                  <div className="pt-6 border-t border-slate-100 flex items-center justify-between mt-auto">
                     <div>
-                      <div className="text-xs text-gray-500">Classes</div>
-                      <div className="font-semibold text-gray-800">{cycle.classes}</div>
+                      <div className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">Niveaux</div>
+                      <div className={`font-bold ${cycle.textLight} bg-opacity-20 px-4 py-1.5 rounded-lg ${cycle.bgLight}`}>
+                        {cycle.classes}
+                      </div>
                     </div>
+                    <Link to="/niveaux" className={`w-12 h-12 rounded-full ${cycle.bgLight} flex items-center justify-center text-blue-600 group-hover:bg-blue-600 group-hover:text-white transition-colors duration-300`}>
+                      <ArrowRight size={20} className="transform group-hover:translate-x-1 transition-transform" />
+                    </Link>
                   </div>
-                  <Link to="/niveaux" className="inline-flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-800 transition-colors group">
-                    En savoir plus
-                    <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
-                  </Link>
                 </div>
               </div>
             </motion.div>
@@ -895,103 +895,98 @@ const NosCycles = () => {
 // COMPOSANT MOT DU FONDATEUR
 // ========================
 const MotFondateur = () => {
-  const founderDots = Array.from({ length: 30 }, (_, i) => ({
-    x: (i % 10) * 10,
-    y: (i % 6) * 16,
-    duration: 15 + (i % 6) * 2,
-    delay: (i % 8) * 1.2,
-  }));
-
   return (
-    <section className="py-14 md:py-16 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 text-white relative overflow-hidden">
-      <div className="absolute inset-0 opacity-10">
-        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&q=80" alt="Background" className="w-full h-full object-cover" />
-      </div>
-      <div className="absolute inset-0 overflow-hidden">
-        {founderDots.map((dot, i) => (
-          <motion.div
-            key={i}
-            className="absolute w-1 h-1 bg-white/10 rounded-full"
-            initial={{ x: dot.x, y: dot.y }}
-            animate={{ y: [null, -200, null], opacity: [0, 1, 0] }}
-            transition={{ duration: dot.duration, repeat: Infinity, delay: dot.delay }}
-          />
-        ))}
+    <section className="py-24 relative overflow-hidden bg-slate-900 text-white">
+      {/* Background with overlay */}
+      <div className="absolute inset-0 z-0">
+        <img src={imgEcole2} alt="GS IBK Campus" className="w-full h-full object-cover opacity-20 filter grayscale" />
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/95 to-slate-800/90" />
       </div>
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <span className="inline-block px-4 py-1 bg-white/10 backdrop-blur-sm rounded-full text-sm font-semibold tracking-wider border border-white/20">
-            HOMMAGE
-          </span>
-          <h2 className="text-3xl md:text-4xl font-bold mt-4">Mot du Fondateur</h2>
-          <div className="w-24 h-1 bg-gradient-to-r from-blue-400 to-blue-200 mx-auto mt-4" />
-        </motion.div>
+      {/* Decorative blobs */}
+      <div className="absolute -top-[20%] -right-[10%] w-[50%] h-[50%] rounded-full bg-blue-600/20 blur-[120px] z-0" />
+      <div className="absolute -bottom-[20%] -left-[10%] w-[50%] h-[50%] rounded-full bg-indigo-600/20 blur-[120px] z-0" />
 
-        <div className="flex flex-col lg:flex-row gap-8 md:gap-10 items-center">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="flex flex-col lg:flex-row gap-16 items-center">
+          
+          {/* Image Column */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
+            initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
             viewport={{ once: true }}
-            className="lg:w-1/3"
+            transition={{ duration: 0.8, type: "spring" }}
+            className="lg:w-2/5"
           >
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full opacity-30 blur-2xl" />
-              <div className="relative w-64 h-64 mx-auto rounded-full overflow-hidden border-4 border-white/30 shadow-2xl">
-                <img src={fondateurImg} alt="Feu Ibrahima Baba Kaké" className="w-full h-full object-cover" />
+            <div className="relative mx-auto w-72 h-72 md:w-96 md:h-96">
+              {/* Glow effect behind image */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-500 to-indigo-500 rounded-full blur-2xl opacity-40 animate-pulse" />
+              
+              <div className="relative w-full h-full rounded-full p-2 bg-gradient-to-tr from-blue-500 via-indigo-400 to-white/20">
+                <div className="w-full h-full rounded-full overflow-hidden border-8 border-slate-900 bg-slate-800">
+                  <img src={fondateurImg} alt="Feu Ibrahima Baba Kaké" className="w-full h-full object-cover" />
+                </div>
               </div>
-              <div className="absolute -bottom-4 left-1/2 transform -translate-x-1/2 bg-white/10 backdrop-blur-sm px-6 py-2 rounded-full border border-white/20">
-                <span className="text-sm font-semibold">2001 - 2025</span>
+              
+              {/* Badge */}
+              <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-800 border border-slate-700 px-8 py-3 rounded-full shadow-2xl backdrop-blur-md">
+                <div className="flex items-center gap-3">
+                  <div className="w-2 h-2 rounded-full bg-blue-500" />
+                  <span className="text-sm font-bold tracking-widest text-slate-200">1940 - 2015</span>
+                  <div className="w-2 h-2 rounded-full bg-blue-500" />
+                </div>
               </div>
             </div>
           </motion.div>
 
+          {/* Content Column */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={{ opacity: 0, x: 40 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:w-2/3 space-y-6"
+            transition={{ duration: 0.8 }}
+            className="lg:w-3/5 space-y-8"
           >
-            <div className="flex items-start gap-4">
-              <Quote className="text-blue-300/50 flex-shrink-0" size={40} />
-              <p className="text-xl leading-relaxed text-blue-100 italic">
-                "L'éducation est le fondement du développement d'une nation. Chaque enfant mérite
-                une chance de réaliser son plein potentiel."
+            <div>
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-white/10 backdrop-blur-md border border-white/10 rounded-full text-xs font-bold tracking-widest text-blue-300 uppercase mb-6">
+                <Award size={14} /> Hommage au Fondateur
+              </span>
+              <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-2 tracking-tight">
+                Feu Ibrahima Baba Kaké
+              </h2>
+              <div className="text-xl text-blue-400 font-medium">Visionnaire & Éducateur</div>
+            </div>
+
+            <div className="relative bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 md:p-10 shadow-2xl">
+              <Quote className="absolute top-6 right-8 text-white/10" size={80} />
+              <p className="text-xl md:text-2xl leading-relaxed text-slate-300 italic font-medium relative z-10">
+                "L'éducation n'est pas seulement l'apprentissage de faits, mais la formation de l'esprit à penser. Chaque enfant qui franchit nos portes porte en lui l'avenir de notre nation."
               </p>
             </div>
-            <div className="space-y-4 text-blue-200">
+
+            <div className="grid sm:grid-cols-2 gap-6 text-slate-300 leading-relaxed">
               <p>
-                <strong className="text-white">Feu Ibrahima Baba Kaké</strong>, fondateur du Groupe Scolaire,
-                a consacré sa vie à la création d'un cadre d'apprentissage capable de former des
-                générations de citoyens compétents, responsables et engagés pour l'avenir de la Guinée.
+                En 2001, animé par une passion inébranlable pour la jeunesse et l'éducation, 
+                <strong className="text-white font-bold"> Elhadj Ibrahima Baba Kaké</strong> a fondé cet établissement avec un objectif clair : 
+                offrir un cadre d'excellence accessible.
               </p>
               <p>
-                Son engagement, sa vision et son amour pour la jeunesse ont permis la naissance
-                d'une institution qui continue aujourd'hui à transmettre les mêmes idéaux d'excellence
-                et de persévérance.
+                Aujourd'hui, son héritage continue de rayonner. Les valeurs de <span className="text-blue-400 font-semibold">rigueur</span>, de <span className="text-blue-400 font-semibold">travail</span> et 
+                de <span className="text-blue-400 font-semibold">discipline</span> qu'il a insufflées restent le socle de notre projet éducatif.
               </p>
             </div>
-            <div className="grid grid-cols-3 gap-3 pt-4 border-t border-white/20">
-              {[
-                { icon: Heart, label: 'Amour du Savoir' },
-                { icon: Award, label: 'Excellence' },
-                { icon: Target, label: 'Vision' },
-              ].map((item, index) => (
-                <div key={index} className="bg-white/5 backdrop-blur-sm rounded-xl p-3 text-center border border-white/10">
-                  <item.icon className="mx-auto mb-1 text-blue-300" size={20} />
-                  <span className="text-xs font-semibold text-blue-200">{item.label}</span>
-                </div>
-              ))}
+
+            <div className="pt-6 border-t border-white/10 flex flex-wrap gap-4">
+              <div className="flex items-center gap-2 px-4 py-2 bg-slate-800 rounded-lg text-sm text-slate-300 font-medium">
+                <Heart size={16} className="text-rose-500" /> Passion
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-slate-800 rounded-lg text-sm text-slate-300 font-medium">
+                <Target size={16} className="text-indigo-400" /> Vision
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 bg-slate-800 rounded-lg text-sm text-slate-300 font-medium">
+                <Award size={16} className="text-amber-400" /> Excellence
+              </div>
             </div>
-            <p className="text-sm text-blue-300 mt-4">
-              <strong>Son héritage perdure.</strong> Les valeurs qu'il a incarnées restent profondément
-              ancrées dans la culture de l'établissement.
-            </p>
           </motion.div>
         </div>
       </div>

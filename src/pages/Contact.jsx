@@ -1,8 +1,24 @@
 import { useState } from 'react';
-import { motion } from 'framer-motion';
-import { MapPin, Phone, Mail, Send, Clock, MessageCircle, ExternalLink, CheckCircle, AlertCircle } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MapPin, Phone, Mail, Send, Clock, MessageCircle, ExternalLink, CheckCircle, AlertCircle, ChevronLeft, ChevronRight } from 'lucide-react';
+import imgEcole1 from '../assets/image ecole/image_1.png';
+import imgEcole2 from '../assets/image ecole/image_2.png';
+import imgEcole3 from '../assets/image ecole/image_3.png';
+import imgEcole4 from '../assets/image ecole/image_4.png';
+import imgEcole5 from '../assets/image ecole/image_5.png';
 
 const Contact = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const bannerImages = [imgEcole1, imgEcole2, imgEcole3, imgEcole4, imgEcole5];
+
+  const changeImage = (direction) => {
+    if (direction === 'next') {
+      setCurrentImageIndex((prev) => (prev + 1) % bannerImages.length);
+    } else {
+      setCurrentImageIndex((prev) => (prev - 1 + bannerImages.length) % bannerImages.length);
+    }
+  };
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -128,24 +144,72 @@ const Contact = () => {
 
   return (
     <div className="bg-white min-h-screen">
-      {/* Header */}
-      <section className="bg-blue-900 py-20 text-center px-4">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-5xl font-bold text-white font-heading mb-4"
+      {/* Image Banner Interactive */}
+      <div className="relative h-80 bg-gray-900 overflow-hidden group">
+        <motion.img
+          key={currentImageIndex}
+          src={bannerImages[currentImageIndex]}
+          alt="GS_IBK"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-950/95 via-blue-900/80 to-black/40" />
+        
+        {/* Overlay Text */}
+        <div className="absolute inset-0 flex items-center z-10">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              className="max-w-3xl"
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-1 bg-blue-500 rounded-full" />
+                <span className="uppercase tracking-widest text-sm font-bold text-blue-200 drop-shadow-md">
+                  NOUS CONTACTER
+                </span>
+              </div>
+              <h1 className="text-4xl md:text-5xl lg:text-7xl font-extrabold text-white mb-6 leading-tight drop-shadow-lg">
+                Contactez-nous <br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-300">Aujourd'hui</span>
+              </h1>
+              <p className="text-lg md:text-2xl text-blue-50/90 mb-10 leading-relaxed font-light max-w-2xl">
+                Notre administration se tient à votre entière disposition pour répondre à toutes vos questions.
+              </p>
+            </motion.div>
+          </div>
+        </div>
+
+        {/* Navigation buttons */}
+        <button
+          onClick={() => changeImage('prev')}
+          className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-20"
         >
-          Contactez-nous
-        </motion.h1>
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="text-xl text-blue-200 max-w-2xl mx-auto"
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={() => changeImage('next')}
+          className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white p-3 rounded-full transition-all duration-300 opacity-0 group-hover:opacity-100 z-20"
         >
-          Notre administration se tient à votre entière disposition pour répondre à toutes vos questions.
-        </motion.p>
-      </section>
+          <ChevronRight size={24} />
+        </button>
+
+        {/* Indicators */}
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2 z-20">
+          {bannerImages.map((_, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentImageIndex(idx)}
+              className={`h-2 rounded-full transition-all ${
+                idx === currentImageIndex ? 'w-8 bg-white' : 'w-2 bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="flex flex-col lg:flex-row gap-16">
